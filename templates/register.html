@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - StegoVault</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-dark: #0a192f;
+      --primary-blue: #112240;
+      --accent-blue: #64ffda;
+      --light-blue: #a8b2d1;
+      --white: #e6f1ff;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+      color: var(--white);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .register-container {
+      max-width: 450px;
+      width: 100%;
+      background-color: rgba(17, 34, 64, 0.9);
+      border-radius: 15px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .register-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(100, 255, 218, 0.05) 0%, rgba(10, 25, 47, 0) 70%);
+      z-index: 0;
+    }
+    
+    .register-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .app-name {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent-blue) 0%, var(--light-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    .app-tagline {
+      color: var(--light-blue);
+      font-size: 0.9rem;
+    }
+    
+    .form-label {
+      color: var(--light-blue);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    
+    .form-control {
+      background-color: rgba(10, 25, 47, 0.7);
+      border: 1px solid rgba(100, 255, 218, 0.2);
+      border-radius: 5px;
+      color: var(--white);
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      background-color: rgba(10, 25, 47, 0.9);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+      color: var(--white);
+    }
+    
+    .password-strength {
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      margin-top: -15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 5px;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .password-requirements {
+      font-size: 0.8rem;
+      color: var(--light-blue);
+      margin-bottom: 20px;
+    }
+    
+    .requirement {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    
+    .requirement i {
+      margin-right: 8px;
+      font-size: 0.7rem;
+      width: 15px;
+    }
+    
+    .requirement.met {
+      color: var(--accent-blue);
+    }
+    
+    .btn-register {
+      background-color: var(--accent-blue);
+      color: var(--primary-dark);
+      border: none;
+      padding: 12px;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .btn-register:hover {
+      background-color: var(--light-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.4);
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--light-blue);
+    }
+    
+    .login-link a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .login-link a:hover {
+      color: var(--light-blue);
+      text-decoration: underline;
+    }
+    
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--light-blue);
+    }
+    
+    .security-note i {
+      color: var(--accent-blue);
+      margin-right: 8px;
+    }
+    
+    .floating-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      color: var(--accent-blue);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    
+    .icon-1 {
+      top: 10%;
+      left: 10%;
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .icon-2 {
+      bottom: 15%;
+      right: 10%;
+      animation: float 4s ease-in-out infinite 1s;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="floating-icon icon-1">
+      <i class="fas fa-lock"></i>
+    </div>
+    <div class="floating-icon icon-2">
+      <i class="fas fa-user-plus"></i>
+    </div>
+    
+    <div class="register-content">
+      <div class="logo">
+        <h1 class="app-name">StegoVault</h1>
+        <p class="app-tagline">Create your secure account</p>
+      </div>
+      
+      <form method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+        </div>
+            
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+          <div class="password-strength">
+            <div class="password-strength-bar" id="password-strength-bar"></div>
+          </div>
+          <div class="password-requirements">
+            <div class="requirement" id="req-length">
+              <i class="fas fa-times"></i> At least 8 characters
+            </div>
+            <div class="requirement" id="req-uppercase">
+              <i class="fas fa-times"></i> One uppercase letter
+            </div>
+            <div class="requirement" id="req-lowercase">
+              <i class="fas fa-times"></i> One lowercase letter
+            </div>
+            <div class="requirement" id="req-number">
+              <i class="fas fa-times"></i> One number
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+          <div class="invalid-feedback" id="password-match-feedback">
+            Passwords do not match.
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-register" id="register-btn">
+          <i class="fas fa-user-plus me-2"></i>Create Account
+        </button>
+      </form>
+      
+      <div class="login-link">
+        Already have an account? <a href="/login">Sign in here</a>
+      </div>
+      
+      <div class="security-note">
+        <i class="fas fa-shield-alt"></i>
+        <span>Your data is encrypted and secure</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirm-password');
+      const passwordStrengthBar = document.getElementById('password-strength-bar');
+      const registerBtn = document.getElementById('register-btn');
+      
+      // Password strength indicator
+      passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        let strength = 0;
+        
+        // Check password requirements
+        const hasMinLength = password.length >= 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasNumbers = /\d/.test(password);
+        
+        // Update requirement indicators
+        updateRequirement('req-length', hasMinLength);
+        updateRequirement('req-uppercase', hasUpperCase);
+        updateRequirement('req-lowercase', hasLowerCase);
+        updateRequirement('req-number', hasNumbers);
+        
+        // Calculate strength
+        if (hasMinLength) strength += 25;
+        if (hasUpperCase) strength += 25;
+        if (hasLowerCase) strength += 25;
+        if (hasNumbers) strength += 25;
+        
+        // Update strength bar
+        passwordStrengthBar.style.width = strength + '%';
+        
+        // Update strength bar color
+        if (strength < 50) {
+          passwordStrengthBar.style.backgroundColor = '#ff5252'; // Red
+        } else if (strength < 75) {
+          passwordStrengthBar.style.backgroundColor = '#ffb142'; // Orange
+        } else {
+          passwordStrengthBar.style.backgroundColor = '#2ed573'; // Green
+        }
+      });
+      
+      // Password confirmation check
+      confirmPasswordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (confirmPassword && password !== confirmPassword) {
+          confirmPasswordInput.classList.add('is-invalid');
+        } else {
+          confirmPasswordInput.classList.remove('is-invalid');
+        }
+      });
+      
+      // Form submission validation
+      document.querySelector('form').addEventListener('submit', function(e) {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (password !== confirmPassword) {
+          e.preventDefault();
+          confirmPasswordInput.classList.add('is-invalid');
+          confirmPasswordInput.focus();
+        }
+      });
+      
+      // Helper function to update requirement indicators
+      function updateRequirement(id, condition) {
+        const element = document.getElementById(id);
+        const icon = element.querySelector('i');
+        
+        if (condition) {
+          element.classList.add('met');
+          icon.className = 'fas fa-check';
+        } else {
+          element.classList.remove('met');
+          icon.className = 'fas fa-times';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
